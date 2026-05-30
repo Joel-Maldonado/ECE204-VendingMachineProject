@@ -1,6 +1,6 @@
 module VendingMachine(
-    input  logic clk,
-    input  logic reset,
+    input  logic clock50Mhz,
+    input  logic reset_n,
     input  logic nickel,
     input  logic dime,
     input  logic quarter,
@@ -10,10 +10,47 @@ module VendingMachine(
     output logic dime_out,
     output logic quarter_out
 );
+// Main clock loop
 
+// Tick counter
+
+	logic [25:0] tick,
+	logic clk;
+	logic tick_enable_n;
+
+	Counter #(.N(26)) tick_counter (
+		.clock(clock50Mhz),
+		.clear_input_n(tick_clear_n),
+		.enable_n(1'd0),
+		.reset_n(reset_n),
+		.addBy(26'd1),
+		.count(tick)
+	);
+	
+	logic tick_carry;
+	
+	assign tick_carry = (tick == 26'd49_999_999);
+	
+	// Extra debug comparators
+	//assign tick_carry = (tick == 26'd4);
+	//assign tick_carry = (tick == 26'd50_000);
+	
+	
+	// Use this as the clock signal
+	assign clk = ~tick_carry;
+
+
+
+
+
+
+
+
+
+// Module Definitions
 module Counter#(
     parameter int N = 4
-)(
+	)(
     input logic clock,
     input logic clear_input_n,
 	 input logic enable_n,
