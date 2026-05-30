@@ -1,0 +1,12 @@
+module VendingMachine(
+    input  logic clk,
+    input  logic reset,
+    input  logic nickel,
+    input  logic dime,
+    input  logic quarter,
+    input  logic refund,
+    output logic vend,
+    output logic nickel_out,
+    output logic dime_out,
+    output logic quarter_out
+);
