@@ -16,6 +16,7 @@ module VendingMachine(
 
 	logic [25:0] tick,
 	logic clk;
+	logic tick_clear_n;
 	logic tick_enable_n;
 
 	Counter #(.N(26)) tick_counter (
@@ -37,13 +38,31 @@ module VendingMachine(
 	
 	
 	// Use this as the clock signal
-	assign clk_Hz = ~tick_carry;
+	assign clk_1Hz = ~tick_carry;
 
 
 
 
+	// Balance Counter
+	logic [8:0] balance,
+	logic balance_enable_n;
+	logic balance_clear_n;
+	logic balance_addby;
 
-
+	Counter #(.N(8)) balance_counter (
+		.clock(clk_1Hz),
+		.clear_input_n(balance_clear_n),
+		.enable_n(1'd0),
+		.reset_n(reset_n),
+		.addBy(balance_addby),
+		.count(balance)
+	);
+	
+	logic vend_mode;
+	logic refund_mode;
+	
+	assign vend_mode = (balance == 8'd20);
+	assign refund mode = !(balance == 8'd0);
 
 
 
