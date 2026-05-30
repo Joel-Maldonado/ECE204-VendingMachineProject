@@ -1,5 +1,5 @@
 module VendingMachine(
-    input  logic clock50Mhz,
+    input  logic clk,
     input  logic reset_n,
     input  logic nickel,
     input  logic dime,
@@ -19,7 +19,7 @@ module VendingMachine(
 	logic tick_enable_n;
 
 	Counter #(.N(26)) tick_counter (
-		.clock(clock50Mhz),
+		.clock(clk),
 		.clear_input_n(tick_clear_n),
 		.enable_n(1'd0),
 		.reset_n(reset_n),
@@ -37,7 +37,7 @@ module VendingMachine(
 	
 	
 	// Use this as the clock signal
-	assign clk = ~tick_carry;
+	assign clk_Hz = ~tick_carry;
 
 
 
