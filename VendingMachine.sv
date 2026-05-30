@@ -11,25 +11,64 @@ module VendingMachine(
     output logic quarter_out
 );
 
-module counter #(
-    parameter N = 4
+module Counter#(
+    parameter int N = 4
 )(
-    input  logic clk,
-    input  logic reset_n, 
-    input  logic clear_n, 
-    input  logic enable_n,
-    input  logic [N-1:0] addBy,
+    input logic clock,
+    input logic clear_input_n,
+	 input logic enable_n,
+	 input logic reset_n,
+    input logic [N-1:0] addBy,
     output logic [N-1:0] count
 );
-    always_ff @(posedge clk or negedge reset_n) begin
-        if (reset_n == 1'b0) begin
-            count <= 0; 
-        end else if (clear_n == 1'b0) begin
-            count <= 0; 
-        end else if (enable_n == 1'b0) begin
-            count <= count + addBy;
-        end
-    end
+
+	logic [N-1:0] count_next;
+	always_comb begin
+		if(!enable_n)
+			count_next = count + addBy;
+		else
+			count_next = count;
+		end
+	
+	RegisterNBit #(.N(N)) dut(
+        .clock(clock),
+        .clear_n(clear_input_n),
+		  .reset_n(reset_n),
+		  .d(count_next),
+		  .q(count)
+    );
+
+endmodule
+
+module RegisterNBit#(
+    parameter int N = 4
+)(
+    input logic clock,
+    input logic clear_n,
+	 input logic reset_n,
+    input logic [N-1:0] d,
+    output logic [N-1:0] q
+);
+
+	// Update `q` only on the rising edge of `clock` or the falling
+	// edge of `clear_n`
+	always_ff @(posedge clock or negedge reset_n) begin
+			
+		if (reset_n == 1'b0) begin
+			// Set `q` to 0 when `reset_n` is low (active)
+			q <= '0;
+			
+		end else if (clear_n == 1'b0) begin
+			// Set `q` to 0 when `clear_n` is low (active)
+			q <= '0;
+			
+		end else begin
+			// Set `q` to `d` on `clock` rising edge
+			q <= d;
+			
+		end
+	end
+
 endmodule
 
 module SevenSegmentDecode(
