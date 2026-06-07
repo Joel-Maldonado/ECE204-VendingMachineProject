@@ -18,7 +18,7 @@ module VendingMachine(
 	input logic item_3, //$2.50
 	
 	// LED outputs for vending, and coin returns
-	output logic [2:0] vend,
+	output logic vend,
 	output logic nickel_out,
 	output logic dime_out,
 	output logic quarter_out,
@@ -59,15 +59,13 @@ module VendingMachine(
 //-------------------------------------------------------------
 // Balance Counter
 //-------------------------------------------------------------
-	
-	assign balance_clear_n = 1'b1;
- 
  
 	// The balance is stored in nickels, so 20 means $1.00
 	logic signed [7:0] balance;
 	logic signed [7:0] balance_addby;
+	logic [7:0] cost;
 	
-	logic balance_clear_n;
+	logic balance_clear_n = 1'b1;
 
 	Counter #(.N(8)) balance_counter (
 		  .clock(clk_1Hz),
@@ -195,8 +193,6 @@ module VendingMachine(
 // Cost Logic
 //-------------------------------------------------------------
 
-	logic [7:0] cost;
-
 	always_comb begin
 		// Set cost to $1 if no switch is on
 		cost = 8'd20; //$1.00
@@ -216,7 +212,7 @@ module VendingMachine(
 //-------------------------------------------------------------
 
 	// If in VEND state, set vend LED to on
-	assign vend = (current_state == VEND) ? 3'b111 : 3'b000;
+	assign vend = (current_state == VEND);
 	
 	// Display inputs
 	logic [4:0] digit0, digit1, digit2, digit3, digit4, digit5;

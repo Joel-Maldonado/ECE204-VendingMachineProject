@@ -107,6 +107,7 @@ set_location_assignment PIN_N14 -to clk
 set_location_assignment PIN_A9 -to dime_out
 set_location_assignment PIN_A8 -to nickel_out
 set_location_assignment PIN_A10 -to quarter_out
+set_location_assignment PIN_B11 -to vend
 set_location_assignment PIN_D15 -to dot
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg1[5]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to vend
@@ -164,7 +165,4 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg0[3]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg0[4]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg0[5]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg0[6]
-set_location_assignment PIN_B11 -to vend[0]
-set_location_assignment PIN_A11 -to vend[1]
-set_location_assignment PIN_D14 -to vend[2]
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
