@@ -42,7 +42,7 @@ set_global_assignment -name DEVICE 10M50DAF484C7G
 set_global_assignment -name TOP_LEVEL_ENTITY VendingMachine
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 22.1STD.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "13:47:52  MAY 30, 2026"
-set_global_assignment -name LAST_QUARTUS_VERSION "22.1std.1 Lite Edition"
+set_global_assignment -name LAST_QUARTUS_VERSION "25.1std.0 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
@@ -53,4 +53,118 @@ set_global_assignment -name SYSTEMVERILOG_FILE VendingMachine.sv
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_location_assignment PIN_C14 -to Seg0[0]
+set_location_assignment PIN_E15 -to Seg0[1]
+set_location_assignment PIN_C15 -to Seg0[2]
+set_location_assignment PIN_C16 -to Seg0[3]
+set_location_assignment PIN_E16 -to Seg0[4]
+set_location_assignment PIN_D17 -to Seg0[5]
+set_location_assignment PIN_C17 -to Seg0[6]
+set_location_assignment PIN_C18 -to Seg1[0]
+set_location_assignment PIN_D18 -to Seg1[1]
+set_location_assignment PIN_E18 -to Seg1[2]
+set_location_assignment PIN_B16 -to Seg1[3]
+set_location_assignment PIN_A17 -to Seg1[4]
+set_location_assignment PIN_A18 -to Seg1[5]
+set_location_assignment PIN_B17 -to Seg1[6]
+set_location_assignment PIN_B20 -to Seg2[0]
+set_location_assignment PIN_A20 -to Seg2[1]
+set_location_assignment PIN_B19 -to Seg2[2]
+set_location_assignment PIN_A21 -to Seg2[3]
+set_location_assignment PIN_B21 -to Seg2[4]
+set_location_assignment PIN_C22 -to Seg2[5]
+set_location_assignment PIN_B22 -to Seg2[6]
+set_location_assignment PIN_F21 -to Seg3[0]
+set_location_assignment PIN_E22 -to Seg3[1]
+set_location_assignment PIN_E21 -to Seg3[2]
+set_location_assignment PIN_C19 -to Seg3[3]
+set_location_assignment PIN_C20 -to Seg3[4]
+set_location_assignment PIN_D19 -to Seg3[5]
+set_location_assignment PIN_E17 -to Seg3[6]
+set_location_assignment PIN_F18 -to Seg4[0]
+set_location_assignment PIN_E20 -to Seg4[1]
+set_location_assignment PIN_E19 -to Seg4[2]
+set_location_assignment PIN_J18 -to Seg4[3]
+set_location_assignment PIN_H19 -to Seg4[4]
+set_location_assignment PIN_F19 -to Seg4[5]
+set_location_assignment PIN_F20 -to Seg4[6]
+set_location_assignment PIN_J20 -to Seg5[0]
+set_location_assignment PIN_K20 -to Seg5[1]
+set_location_assignment PIN_L18 -to Seg5[2]
+set_location_assignment PIN_N18 -to Seg5[3]
+set_location_assignment PIN_M20 -to Seg5[4]
+set_location_assignment PIN_N19 -to Seg5[5]
+set_location_assignment PIN_N20 -to Seg5[6]
+set_location_assignment PIN_F15 -to item_1
+set_location_assignment PIN_B14 -to item_2
+set_location_assignment PIN_A14 -to item_3
+set_location_assignment PIN_C10 -to nickel
+set_location_assignment PIN_C11 -to dime
+set_location_assignment PIN_D12 -to quarter
+set_location_assignment PIN_A7 -to refund_n
+set_location_assignment PIN_B8 -to reset_n
+set_location_assignment PIN_N14 -to clk
+set_location_assignment PIN_A9 -to dime_out
+set_location_assignment PIN_A8 -to nickel_out
+set_location_assignment PIN_A10 -to quarter_out
+set_location_assignment PIN_D15 -to dot
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg1[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to vend
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to reset_n
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to refund_n
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to quarter_out
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to quarter
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to nickel_out
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to nickel
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to item_3
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to item_2
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to item_1
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to dot
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to dime_out
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to dime
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg5[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg5[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg5[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg5[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg5[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg5[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg5[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg4[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg4[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg4[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg4[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg4[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg4[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg4[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg3[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg3[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg3[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg3[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg3[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg3[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg3[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg2[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg2[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg2[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg2[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg2[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg2[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg2[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg1[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg1[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg1[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg1[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg1[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg1[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg0[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg0[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg0[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg0[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg0[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg0[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Seg0[6]
+set_location_assignment PIN_B11 -to vend[0]
+set_location_assignment PIN_A11 -to vend[1]
+set_location_assignment PIN_D14 -to vend[2]
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
