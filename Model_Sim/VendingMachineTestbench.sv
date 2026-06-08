@@ -29,6 +29,8 @@ module VendingMachineTestbench();
   logic dimeExpected;
   logic quarterExpected;
 
+  // Number of comparision errors since start of simulation
+  int numErrors;
 
   // Create System clock
   always begin
@@ -76,6 +78,7 @@ module VendingMachineTestbench();
       reset_n = 1'b0;
       #10;
       reset_n = 1'b1;
+      validateState();
   endtask
 
 
@@ -87,6 +90,7 @@ module VendingMachineTestbench();
       #4;
     end
     nickel = 1'b0; dime = 1'b0; quarter = 1'b0;
+    validateState();
   endtask
 
 
@@ -98,6 +102,7 @@ module VendingMachineTestbench();
       #4;
     end
     nickel = 1'b0; dime = 1'b0; quarter = 1'b0;
+    validateState();
   endtask
 
 
@@ -109,6 +114,7 @@ module VendingMachineTestbench();
       #4;
     end
     nickel = 1'b0; dime = 1'b0; quarter = 1'b0;
+    validateState();
   endtask
   
   // Refunds remaining balance
@@ -120,22 +126,27 @@ module VendingMachineTestbench();
     while (balanceExpected >= 5) begin
       nickelExpected = 1'b0; dimeExpected = 1'b0; quarterExpected = 1'b1;
       #4;
+      validateState();
       balanceExpected -= 5;
       refund_n = 1'b1;
+      
     end
     
     // while balance is above 2, refund dimes
     while (balanceExpected >= 2) begin
       nickelExpected = 1'b0; dimeExpected = 1'b1; quarterExpected = 1'b0;
       #4;
+      validateState();
       balanceExpected -= 2;
       refund_n = 1'b1;
+
     end
 
     // while balance is above 1, refund nickels
     while (balanceExpected >= 1) begin
       nickelExpected = 1'b1; dimeExpected = 1'b0; quarterExpected = 1'b0;
       #4;
+      validateState();
       balanceExpected -= 1;
       refund_n = 1'b1;
     end
@@ -169,6 +180,29 @@ module VendingMachineTestbench();
     refund();
 
   endtask
+
+task validateState();
+    if (dut.balance !== balanceExpected || nickel_out !== nickelExpected ||
+            dime_out !== dimeExpected || quarter_out !== quarterExpected)
+    begin
+
+        numErrors++;
+        if (numErrors > 3) begin
+            $display("Too many errors.  Halting simulation.");
+            $stop;
+        end
+
+        // Print current time, measured & expected quantities
+        // Format hour:minute:second.tick
+        $display("%0tps: measured %2d:%2d:%2d.%1d expected %2d:%2d:%2d.%1d",
+            $time,
+            dut.balance, nickel_out, dime_out, quarter_out,
+            balanceExpected, nickelExpected, dimeExpected, quarterExpected,
+        );
+
+    end
+endtask
+
 
   // -------------------------
   // Testing
@@ -229,6 +263,9 @@ module VendingMachineTestbench();
 
     // Finish simulation
     #20;
+    if (0 == numErrors) begin
+        $display("VendingMachine module validated successfully!");
+    end
     $stop;
   end
 

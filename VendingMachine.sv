@@ -127,6 +127,11 @@ module VendingMachine(
 				if (balance == 0)
 					next_state = INPUT;
 			end
+			
+			// Default state for errors
+			default: begin
+				next_state = INPUT;
+			end
 		endcase
 	end
 
@@ -184,6 +189,11 @@ module VendingMachine(
 				// If balance equals 0, set add_by to 0
 				else
 					balance_addby = 0;
+			end
+			
+			// Default state for errors
+			default: begin
+				balance_addby = 0;
 			end
 
 		endcase
@@ -261,6 +271,17 @@ module VendingMachine(
 			digit4 = 5'd19; // Y
 			digit5 = 5'd20; // blank
 			dot = 1'd0;
+		end
+		
+		// Default state for errors
+		default: begin
+			digit0 = 5'd10;
+			digit1 = 5'd10;
+			digit2 = 5'd10;
+			digit3 = 5'd10;
+			digit4 = 5'd10;
+			digit5 = 5'd10;
+			dot    = 1'd0;
 		end
 
 		endcase
