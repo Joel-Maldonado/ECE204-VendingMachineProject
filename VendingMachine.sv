@@ -1,3 +1,30 @@
+/*
+Vending Machine
+6/7/2026
+
+This is the Vending Machine design project for ECE 204
+
+This models a simple vending machine that inputs quarters, dimes and nickels and dispenses different items based on user selection. A reset button is present to reset the machine, and a refund button is present to refund any inserted change.
+
+Using the three rightmost switches, users can input quarters, dimes and nickels into the machine. The current balance is displayed in cents on the displays to the left. Pressing the refund button will display the amount remaining to be refunded to the user, and lights about the input switches will light up to represent coins being returned to the user.
+
+The 3 left most switches control what item will be dispensed. Each item has a different cost, and upon the balance reaching the cost threshold, the screen will display “Enjoy!” and the vend light will turn on before the cost of the item will be deducted from the balance, and the remaining change will be refunded to the user.
+
+Authors:
+Owen Schwab
+Yuki Takeuchi
+Joel Maldonado-Ruiz
+
+Sources Used:
+Lab 4:
+	Counter module
+	RegisterNBit module
+
+Lab 3b:
+	Modified version of the SevenSegmentDecode module
+/*
+
+
 module VendingMachine(
 	// 50MHZ clock
 	input logic clk,
