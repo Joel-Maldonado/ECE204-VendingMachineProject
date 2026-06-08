@@ -1,5 +1,9 @@
 module VendingMachineTestbench();
 
+//-------------------------------------------------------------
+// Variable Declarations
+//-------------------------------------------------------------
+
   // Inputs
   logic clk;
   logic reset_n;
@@ -40,6 +44,11 @@ module VendingMachineTestbench();
       #1;
   end
 
+
+//-------------------------------------------------------------
+// DUT
+//-------------------------------------------------------------
+
   // Instantiate the VendingMachine dut
   VendingMachine dut (
     .clk(clk),
@@ -69,102 +78,128 @@ module VendingMachineTestbench();
   );
 
 
-  // -------------------------
-  // TASKS
-  // -------------------------
+//-------------------------------------------------------------
+// Task Declarations
+//-------------------------------------------------------------
 
   // Reset the module
   task reset();
       reset_n = 1'b0;
       #10;
       reset_n = 1'b1;
+
       validateState();
   endtask
 
 
   // Inserts n Nickels
   task insertNickels(int n);
+    // Update balance, add nickel, wait and validate state
     for (int i = 0; i < n; i++) begin
       balanceExpected += 1;
       nickel = 1'b1; dime = 1'b0; quarter = 1'b0;
       #4;
+      validateState();
     end
+
+    // Reset inputs
     nickel = 1'b0; dime = 1'b0; quarter = 1'b0;
-    validateState();
   endtask
 
 
   // Inserts n Dimes
   task insertDimes(int n);
+    // Update balance, add dime, wait and validate state
     for (int i = 0; i < n; i++) begin
       balanceExpected += 2;
       nickel = 1'b0; dime = 1'b1; quarter = 1'b0;
       #4;
+      validateState();
     end
+
+    // Reset inputs
     nickel = 1'b0; dime = 1'b0; quarter = 1'b0;
-    validateState();
   endtask
 
 
   // Inserts n Quarters
   task insertQuarters(int n);
+    // Update balance, add quarter, wait and validate state
     for (int i = 0; i < n; i++) begin
       balanceExpected += 5;
       nickel = 1'b0; dime = 1'b0; quarter = 1'b1;
       #4;
+      validateState();
     end
+
+    // Reset inputs
     nickel = 1'b0; dime = 1'b0; quarter = 1'b0;
-    validateState();
   endtask
   
   // Refunds remaining balance
   task refund();
+
+    // Set refund input
     refund_n = 1'b0;
     
-
     // While balance is above 5, refund quarters
     while (balanceExpected >= 5) begin
+      // Set refund expectations and wait
       nickelExpected = 1'b0; dimeExpected = 1'b0; quarterExpected = 1'b1;
       #4;
+      // Validate state and wait, dut.balance updates slightly late
+      // the validateState here is for repeat refunds
       validateState();
       balanceExpected -= 5;
       refund_n = 1'b1;
-      
     end
     
     // while balance is above 2, refund dimes
     while (balanceExpected >= 2) begin
+      // Set refund expectations and wait
       nickelExpected = 1'b0; dimeExpected = 1'b1; quarterExpected = 1'b0;
       #4;
+      // Validate state and wait, dut.balance updates slightly late
+      // the validateState here is for repeat refunds
       validateState();
       balanceExpected -= 2;
       refund_n = 1'b1;
-
     end
 
     // while balance is above 1, refund nickels
     while (balanceExpected >= 1) begin
+      // Set refund expectations and wait
       nickelExpected = 1'b1; dimeExpected = 1'b0; quarterExpected = 1'b0;
       #4;
+      // Validate state and wait, dut.balance updates slightly late
+      // the validateState here is for repeat refunds
       validateState();
       balanceExpected -= 1;
       refund_n = 1'b1;
     end
 
-    refund_n = 1'b1;
 
+
+    // Reset expectations to 0 and wait
+    refund_n = 1'b1;
     nickelExpected = 1'b0; dimeExpected = 1'b0; quarterExpected = 1'b0;
     #8;
+
+    // Double check final state after refund
+    validateState();
   endtask
 
   // Subtracts cost and vends
   task vendItem();
 
+    // Check for vending
     vendExpected = 1'b1;
+    validateState();
     #4;
+
     vendExpected = 1'b0;
 
-    // determine selected item and subtract its cost
+    // Determine selected item and subtract its cost
     if (item_1) begin
       balanceExpected -= 10; // $0.50
     end else if (item_2) begin
@@ -175,26 +210,30 @@ module VendingMachineTestbench();
       balanceExpected -= 20; // $1.00
     end
     
+    // Wait and check state again
     #4;
-
+    validateState();
     refund();
 
   endtask
 
 task validateState();
+    // Check values off the expected values
     if (dut.balance !== balanceExpected || nickel_out !== nickelExpected ||
             dime_out !== dimeExpected || quarter_out !== quarterExpected)
     begin
 
+        // If error is found, increase errors
+        // Halt sim if 3+ are found
         numErrors++;
         if (numErrors > 3) begin
             $display("Too many errors.  Halting simulation.");
             $stop;
         end
 
-        // Print current time, measured & expected quantities
-        // Format hour:minute:second.tick
-        $display("%0tps: measured %2d:%2d:%2d.%1d expected %2d:%2d:%2d.%1d",
+        // Print values
+     
+        $display("%0tps: balance: %2d, nickel_out: %2d, dime_out: %2d, quarter_out: %2d, balanceExpected: %2d, nickelExpected:%2d, dimeExpected:%2d, quarterExpected:%1d",
             $time,
             dut.balance, nickel_out, dime_out, quarter_out,
             balanceExpected, nickelExpected, dimeExpected, quarterExpected,

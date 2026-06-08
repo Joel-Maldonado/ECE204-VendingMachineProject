@@ -1,8 +1,11 @@
-{C:/ECE Simulation/ECE204-VendingMachineProject/Model_Sim/VendingMachineTestbench.sv} {1 {vlog -work work -sv -stats=none {C:/ECE Simulation/ECE204-VendingMachineProject/Model_Sim/VendingMachineTestbench.sv}
+{C:/ECE Simulation/ECE204-VendingMachineProject/VendingMachine.sv} {1 {vlog -work work -sv -stats=none {C:/ECE Simulation/ECE204-VendingMachineProject/VendingMachine.sv}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module VendingMachineTestbench
+-- Compiling module VendingMachine
+-- Compiling module Counter
+-- Compiling module RegisterNBit
+-- Compiling module SevenSegmentDecode
 
 Top level modules:
-	VendingMachineTestbench
+	VendingMachine
 
 } {} {}}

@@ -1,4 +1,4 @@
-# change the file name for the top level file
+# Start sim
 vsim -gui work.VendingMachineTestbench
 
 # Group: Clock + Reset
