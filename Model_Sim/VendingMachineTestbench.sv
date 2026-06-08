@@ -138,9 +138,6 @@ module VendingMachineTestbench();
   
   // Refunds remaining balance
   task refund();
-
-    // Set refund input
-    refund_n = 1'b0;
     
     // While balance is above 5, refund quarters
     while (balanceExpected >= 5) begin
@@ -183,7 +180,7 @@ module VendingMachineTestbench();
     // Reset expectations to 0 and wait
     refund_n = 1'b1;
     nickelExpected = 1'b0; dimeExpected = 1'b0; quarterExpected = 1'b0;
-    #8;
+    #4;
 
     // Double check final state after refund
     validateState();
@@ -196,7 +193,6 @@ module VendingMachineTestbench();
     vendExpected = 1'b1;
     validateState();
     #4;
-
     vendExpected = 1'b0;
 
     // Determine selected item and subtract its cost
@@ -210,9 +206,7 @@ module VendingMachineTestbench();
       balanceExpected -= 20; // $1.00
     end
     
-    // Wait and check state again
-    #4;
-    validateState();
+    // Refund
     refund();
 
   endtask
@@ -276,29 +270,38 @@ endtask
     insertQuarters(1);
     insertDimes(1);
     insertNickels(2);
+    // Set refund input and check output
+    refund_n = 1'b0;
     refund();
+    #4
 
-    // Test vending
-    insertQuarters(4);
+    // Test vending and refunding if overpaid
+    insertDimes(9);
+    insertNickels(1);
+    insertQuarters(1);
     vendItem();
+    #4
 
-    // Test other items
+    // Test item_1
     item_1 = 1;
     insertQuarters(2);
     vendItem();
     item_1 = 0;
+    #4
 
-        // Test other items
+    // Test item_2
     item_2 = 1;
     insertQuarters(8);
     vendItem();
     item_2 = 0;
+    #4
 
-        // Test other items
+    // Test item_3
     item_3 = 1;
     insertQuarters(10);
     vendItem();
     item_3 = 0;
+    #4 
 
     // Finish simulation
     #20;
