@@ -51,7 +51,8 @@ module VendingMachine(
 		  .addBy(26'd1),
 		  .count(tick)
 	 );
-	 assign tick_carry = (tick == 26'd49_999_999);
+	 assign tick_carry = (tick == 26'd1);
+	 //assign tick_carry = (tick == 26'd49_999_999);
 	 assign tick_clear_n = ~tick_carry;
 	 assign clk_1Hz = ~tick_carry; // now in 1 hz
 

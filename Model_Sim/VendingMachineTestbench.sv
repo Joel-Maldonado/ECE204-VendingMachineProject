@@ -1,11 +1,6 @@
-`define TICKS_PER_SECOND   5
-`define SECONDS_PER_MINUTE 60
-`define MINUTES_PER_HOUR   60
-`define HOURS_PER_DAY      24
-
 module VendingMachineTestbench();
 
-  // Module inputs
+  // Inputs
   logic clk;
   logic reset_n;
   logic refund_n;
@@ -18,7 +13,7 @@ module VendingMachineTestbench();
   logic item_2;
   logic item_3;
 
-  // Module outputs
+  // Outputs
   logic vend;
   logic nickel_out;
   logic dime_out;
@@ -28,10 +23,12 @@ module VendingMachineTestbench();
   logic dot;
 
   // Expected outputs
-  logic [2:0] vendExpected;
+  integer balanceExpected;
+  logic vendExpected;
   logic nickelExpected;
   logic dimeExpected;
   logic quarterExpected;
+
 
   // Create System clock
   always begin
@@ -69,6 +66,11 @@ module VendingMachineTestbench();
     .dot(dot)
   );
 
+
+  // -------------------------
+  // TASKS
+  // -------------------------
+
   // Reset the module
   task reset();
       reset_n = 1'b0;
@@ -76,32 +78,160 @@ module VendingMachineTestbench();
       reset_n = 1'b1;
   endtask
 
+
   // Inserts n Nickels
   task insertNickels(int n);
     for (int i = 0; i < n; i++) begin
+      balanceExpected += 1;
       nickel = 1'b1; dime = 1'b0; quarter = 1'b0;
-      #1
+      #4;
     end
     nickel = 1'b0; dime = 1'b0; quarter = 1'b0;
   endtask
+
 
   // Inserts n Dimes
   task insertDimes(int n);
     for (int i = 0; i < n; i++) begin
+      balanceExpected += 2;
       nickel = 1'b0; dime = 1'b1; quarter = 1'b0;
-      #1
+      #4;
     end
     nickel = 1'b0; dime = 1'b0; quarter = 1'b0;
   endtask
 
+
   // Inserts n Quarters
   task insertQuarters(int n);
     for (int i = 0; i < n; i++) begin
+      balanceExpected += 5;
       nickel = 1'b0; dime = 1'b0; quarter = 1'b1;
-      #1
+      #4;
     end
     nickel = 1'b0; dime = 1'b0; quarter = 1'b0;
   endtask
+  
+  // Refunds remaining balance
+  task refund();
+    refund_n = 1'b0;
+    
+
+    // While balance is above 5, refund quarters
+    while (balanceExpected >= 5) begin
+      nickelExpected = 1'b0; dimeExpected = 1'b0; quarterExpected = 1'b1;
+      #4;
+      balanceExpected -= 5;
+      refund_n = 1'b1;
+    end
+    
+    // while balance is above 2, refund dimes
+    while (balanceExpected >= 2) begin
+      nickelExpected = 1'b0; dimeExpected = 1'b1; quarterExpected = 1'b0;
+      #4;
+      balanceExpected -= 2;
+      refund_n = 1'b1;
+    end
+
+    // while balance is above 1, refund nickels
+    while (balanceExpected >= 1) begin
+      nickelExpected = 1'b1; dimeExpected = 1'b0; quarterExpected = 1'b0;
+      #4;
+      balanceExpected -= 1;
+      refund_n = 1'b1;
+    end
+
+    refund_n = 1'b1;
+
+    nickelExpected = 1'b0; dimeExpected = 1'b0; quarterExpected = 1'b0;
+    #8;
+  endtask
+
+  // Subtracts cost and vends
+  task vendItem();
+
+    vendExpected = 1'b1;
+    #4;
+    vendExpected = 1'b0;
+
+    // determine selected item and subtract its cost
+    if (item_1) begin
+      balanceExpected -= 10; // $0.50
+    end else if (item_2) begin
+      balanceExpected -= 40; // $2.00
+    end else if (item_3) begin
+      balanceExpected -= 50; // $2.50
+    end else begin
+      balanceExpected -= 20; // $1.00
+    end
+    
+    #4;
+
+    refund();
+
+  endtask
+
+  // -------------------------
+  // Testing
+  // -------------------------
+  initial begin
+
+    // Initialize
+    reset_n = 1;
+    refund_n = 1;
+
+    nickel = 0;
+    nickelExpected = 0;
+
+    dime = 0;
+    dimeExpected = 0;
+
+    quarter = 0;
+    quarterExpected = 0;
+
+    item_1 = 0;
+    item_2 = 0;
+    item_3 = 0;
+
+    vendExpected = 0;
+    balanceExpected = 0;
+
+    // Start by testing the reset
+    reset();
+    #3;
+
+    // Test refund function
+    insertQuarters(1);
+    insertDimes(1);
+    insertNickels(2);
+    refund();
+
+    // Test vending
+    insertQuarters(4);
+    vendItem();
+
+    // Test other items
+    item_1 = 1;
+    insertQuarters(2);
+    vendItem();
+    item_1 = 0;
+
+        // Test other items
+    item_2 = 1;
+    insertQuarters(8);
+    vendItem();
+    item_2 = 0;
+
+        // Test other items
+    item_3 = 1;
+    insertQuarters(10);
+    vendItem();
+    item_3 = 0;
+
+    // Finish simulation
+    #20;
+    $stop;
+  end
+
 
 endmodule
 

@@ -8,103 +8,153 @@ z2
 !i10f 100
 cModel Technology
 dC:/ECE Simulation/ModelSim/Lab5_sim
-vCounter
+vClockTestbench
 Z0 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
-Z1 !s110 1780829716
+!s110 1780878536
 !i10b 1
-!s100 k<2<Dm[ejcRbYRzjk=adF3
-IDdRO^6:4d?K=6Q^jOCK3@0
-Z2 VDg1SIo80bB@j0V0VzS_@n1
-Z3 !s105 VendingMachine_sv_unit
+!s100 XCZk4je>c5>:Q9_hX2gS[2
+I:OJ9PjhWeYUB1WDBzM9O63
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+!s105 ClockTestbench_sv_unit
 S1
-Z4 dC:/ECE Simulation/ECE204-VendingMachineProject/Model_Sim
-Z5 w1780829707
-Z6 8C:/ECE Simulation/ECE204-VendingMachineProject/VendingMachine.sv
-Z7 FC:/ECE Simulation/ECE204-VendingMachineProject/VendingMachine.sv
-L0 284
-Z8 OV;L;10.5b;63
+Z2 dC:/ECE Simulation/ECE204-VendingMachineProject/Model_Sim
+w1778628345
+8C:/ECE Simulation/ModelSim/Lab5_sim/ClockTestbench.sv
+FC:/ECE Simulation/ModelSim/Lab5_sim/ClockTestbench.sv
+L0 21
+Z3 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z9 !s108 1780829716.000000
-Z10 !s107 C:/ECE Simulation/ECE204-VendingMachineProject/VendingMachine.sv|
-Z11 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/ECE Simulation/ECE204-VendingMachineProject/VendingMachine.sv|
+!s108 1780878536.000000
+!s107 C:/ECE Simulation/ModelSim/Lab5_sim/ClockTestbench.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/ECE Simulation/ModelSim/Lab5_sim/ClockTestbench.sv|
 !i113 1
-Z12 o-work work -sv
-Z13 tCvgOpt 0
+Z4 o-work work -sv
+Z5 tCvgOpt 0
+n@clock@testbench
+vCounter
+R0
+Z6 !s110 1780884896
+!i10b 1
+!s100 OWaVWzlJmHRQPKCPoPgMO2
+I`MF1LbNeFmAK[O7KL>>hN3
+R1
+Z7 !s105 VendingMachine_sv_unit
+S1
+R2
+Z8 w1780882787
+Z9 8C:/ECE Simulation/ECE204-VendingMachineProject/VendingMachine.sv
+Z10 FC:/ECE Simulation/ECE204-VendingMachineProject/VendingMachine.sv
+L0 285
+R3
+r1
+!s85 0
+31
+Z11 !s108 1780884896.000000
+Z12 !s107 C:/ECE Simulation/ECE204-VendingMachineProject/VendingMachine.sv|
+Z13 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/ECE Simulation/ECE204-VendingMachineProject/VendingMachine.sv|
+!i113 1
+R4
+R5
 n@counter
 vRegisterNBit
 R0
-R1
-!i10b 1
-!s100 AMETJ?5GbaRO>FfOc1@<P3
-I39hcG`?]o7Ihm:am?MjjX2
-R2
-R3
-S1
-R4
-R5
 R6
+!i10b 1
+!s100 hi8lRSmLeQdk3OK<<7P=W1
+I^;DckQ>Ph^3TbocDjgKY]0
+R1
 R7
-L0 319
+S1
+R2
 R8
+R9
+R10
+L0 320
+R3
 r1
 !s85 0
 31
-R9
-R10
 R11
-!i113 1
 R12
 R13
+!i113 1
+R4
+R5
 n@register@n@bit
 vSevenSegmentDecode
 R0
-R1
-!i10b 1
-!s100 f_=MW@CPE8<k3i0z9]?101
-Ic>KcI_9bX0>[AB3]o4=451
-R2
-R3
-S1
-R4
-R5
 R6
+!i10b 1
+!s100 =@J?KN;mnol:iBlBKb[`f2
+Imm43lOW0ADoYWV?l=o1OU1
+R1
 R7
-L0 347
+S1
+R2
 R8
+R9
+R10
+L0 348
+R3
 r1
 !s85 0
 31
-R9
-R10
 R11
-!i113 1
 R12
 R13
+!i113 1
+R4
+R5
 n@seven@segment@decode
 vVendingMachine
 R0
-R1
-!i10b 1
-!s100 WE]?^BWVokKoQHM>QHdOV2
-I2d8JJKZ2?6FFiO4TS<^IW1
-R2
-R3
-S1
-R4
-R5
 R6
+!i10b 1
+!s100 2[;Fz9?X@7:Wk9<ODeW:X2
+Ik7oVPY]7UUzHd4@czc_C11
+R1
 R7
-L0 1
+S1
+R2
 R8
+R9
+R10
+L0 1
+R3
 r1
 !s85 0
 31
-R9
-R10
 R11
-!i113 1
 R12
 R13
+!i113 1
+R4
+R5
 n@vending@machine
+vVendingMachineTestbench
+R0
+R6
+!i10b 1
+!s100 NHDjZ46<i0IS8lzYK4GgZ3
+IdVIil^iM8YW@jRP7m2DA[2
+R1
+!s105 VendingMachineTestbench_sv_unit
+S1
+R2
+w1780884887
+8C:/ECE Simulation/ECE204-VendingMachineProject/Model_Sim/VendingMachineTestbench.sv
+FC:/ECE Simulation/ECE204-VendingMachineProject/Model_Sim/VendingMachineTestbench.sv
+L0 1
+R3
+r1
+!s85 0
+31
+R11
+!s107 C:/ECE Simulation/ECE204-VendingMachineProject/Model_Sim/VendingMachineTestbench.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/ECE Simulation/ECE204-VendingMachineProject/Model_Sim/VendingMachineTestbench.sv|
+!i113 1
+R4
+R5
+n@vending@machine@testbench
